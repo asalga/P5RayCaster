@@ -28,7 +28,7 @@ float rot = 0.0f;
 final float ROT_SPEED = 0.025f;
 
 void setup() {
-    size(650, 400);
+    size(400, 400,P2D);
     strokeCap(PROJECT);
 }
 
@@ -44,7 +44,7 @@ void update(){
 void draw() {
   update();
   
-  
+  console.log(floor(frameRate));
     background(0);
 
     //float rot = -frameCount / 400.0f;
