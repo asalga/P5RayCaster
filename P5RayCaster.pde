@@ -82,7 +82,7 @@ void draw() {
     fill(0);
     rect(width/2-gameWidth/2, height/2 - gameHeight/2,  gameWidth , gameHeight);
 
-    debug.addString("FPS: " + frameRate);
+    debug.addString("FPS: " + floor(frameRate));
 
     dir.x =  cos(rot);
     dir.y = -sin(rot);
