@@ -6,6 +6,7 @@
   WORK IN PROGRESS
 */
 
+
 int[][] worldMap = new int[][] {
 
     {1,1,1,1,1,1,1,1,1,1,1,1},
@@ -17,47 +18,84 @@ int[][] worldMap = new int[][] {
     {1,1,1,1,1,1,1,1,1,1,1,1}
 };
 
+float lastTime;
+Debugger debug;
+
 // 
 PVector pos = new PVector(4, 4);
 PVector dir = new PVector(0, 1);
 PVector right = new PVector(1, 0);
 float FOV = 0.6f;
-int res = 1;
-float walkSpeed = 4.0f;
+int gameWidth;
+int gameHeight;
+
+
+int lineWeight = 1;
+
 float rot = 0.0f;
+
+// Put these in a user controller class
 final float ROT_SPEED = 0.025f;
+float walkSpeed = 0.005f;
+
 
 void setup() {
     size(400, 400,P2D);
+    
+    gameWidth = width;
+    gameHeight = height;
+
     strokeCap(PROJECT);
+    debug = new Debugger();
 }
 
-void update(){
+/*
+
+*/
+void update(float dt){
   if(Keyboard.isKeyDown(KEY_LEFT)){
     rot += ROT_SPEED;
   }
   if(Keyboard.isKeyDown(KEY_RIGHT)){
-    rot -=ROT_SPEED;
+    rot -= ROT_SPEED;
+  }
+  if(Keyboard.isKeyDown(KEY_UP)){
+    pos.add(new PVector( dir.x * walkSpeed * dt,  dir.y * walkSpeed * dt));
+  }
+  if(Keyboard.isKeyDown(KEY_DOWN)){
+    pos.add(new PVector(-dir.x * walkSpeed * dt, -dir.y * walkSpeed * dt));
   }
 }
 
+/*
+*/
 void draw() {
-  update();
   
-  console.log(floor(frameRate));
-    background(0);
+    float dt = millis() - lastTime;
+    update(dt);
 
-    //float rot = -frameCount / 400.0f;
+    //fill(128);
+    //rect(0, 0, width, height);
+    background(128);
 
-    dir.x =  cos(rot) * 1;
-    dir.y = -sin(rot) * 1;
+    noStroke();
+    fill(0);
+    rect(width/2-gameWidth/2, height/2 - gameHeight/2,  gameWidth , gameHeight);
+
+    debug.addString("FPS: " + frameRate);
+
+    dir.x =  cos(rot);
+    dir.y = -sin(rot);
     
-    right.x = sin(rot) * 1;
-    right.y = cos(rot) * 1;
+    right.x = sin(rot);
+    right.y = cos(rot);
     
- 
+    strokeWeight(lineWeight);
+
+    int startX = width/2 - gameWidth/2;
+
     // For every vertical line on the viewport
-    for (int x = 0; x < width; x += res) {
+    for (int x = startX; x < width - startX; x += lineWeight) {
 
         float camX = 2.0f * x / float(width) - 1;
         PVector rayPos = new PVector(pos.x, pos.y);
@@ -131,7 +169,8 @@ void draw() {
             wallDist = abs((mapY - rayPos.y + (1.0 - stepY) / 2.0) / rayDir.y);
         }
         
-        float lineHeight = abs(height / wallDist);
+        float lineHeight = abs(gameHeight / wallDist);
+        lineHeight = min(lineHeight, gameHeight);
 
         if (mapX >= 0 && mapY >= 0) {
             switch (worldMap[mapX][mapY]) {
@@ -163,11 +202,16 @@ void draw() {
             }
         }
 
-        strokeWeight(res);
         // Center the line 
         float startY = height / 2 - lineHeight / 2;
         line(x, startY, x, startY + lineHeight);
     }
+
+    debug.draw();
+
+    debug.clear();
+
+    lastTime = millis();
 }
 
 void keyReleased(){
@@ -176,5 +220,22 @@ void keyReleased(){
 
 void keyPressed(){
   Keyboard.setKeyDown(keyCode, true);
-}
 
+  if(Keyboard.isKeyDown(KEY_R)){
+    lineWeight += 2;
+  }
+  if(Keyboard.isKeyDown(KEY_E)){
+    lineWeight -= 2;
+    lineWeight = max(1, lineWeight);
+  }
+
+  if(Keyboard.isKeyDown(KEY_Q)){
+    gameWidth -= 50;
+    gameHeight -= 50;
+  }
+
+  if(Keyboard.isKeyDown(KEY_W)){
+    gameWidth += 50;
+    gameHeight += 50;
+  }  
+}

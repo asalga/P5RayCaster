@@ -1,16 +1,16 @@
 # P5RayCaster make file
 # Andor Salga
 #
+# ./tools-bin/minifier < Tetrissing.js > Tetrissing-min.js
+# rm Tetrissing.js
 
 build: minify
 
 minify:
-	cat P5RayCaster.pde Keyboard.pde > P5RayCaster-min.js
+	cat P5RayCaster.pde Keyboard.pde Debugger.pde > P5RayCaster-min.js
 	rm -fr tools-bin
 	mkdir tools-bin/
 	cc -o tools-bin/minifier tools/jsmin.c
-	#./tools-bin/minifier < Tetrissing.js > Tetrissing-min.js
-	#rm Tetrissing.js
 	rm -fr tools-bin
 
 # 
