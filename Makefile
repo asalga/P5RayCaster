@@ -1,6 +1,8 @@
 # P5RayCaster make file
 # Andor Salga
 #
+# ./tools-bin/minifier < Tetrissing.js > Tetrissing-min.js
+# rm Tetrissing.js
 
 build: minify
 
@@ -9,8 +11,6 @@ minify:
 	rm -fr tools-bin
 	mkdir tools-bin/
 	cc -o tools-bin/minifier tools/jsmin.c
-	#./tools-bin/minifier < Tetrissing.js > Tetrissing-min.js
-	#rm Tetrissing.js
 	rm -fr tools-bin
 
 # 
