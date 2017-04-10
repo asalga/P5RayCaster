@@ -1,13 +1,10 @@
-/*
- * Prints text on top of everything for real-time object tracking.
- */
-class Debugger{
+class RayDebugger{
   private ArrayList strings;
   private PFont font;
   private int fontSize;
   private boolean isOn;
   
-  public Debugger(){
+  public RayDebugger(){
     isOn = true;
     strings = new ArrayList();
     fontSize = 15;
@@ -20,18 +17,11 @@ class Debugger{
     }
   }
   
-  /*
-   * Should be called after every frame
-   */
   public void clear(){
     strings.clear();
   }
   
-  /**
-    If the debugger is off, it will ignore calls to addString and draw saving
-    some processing time.
-  */
-  public void toggle(){
+    public void toggle(){
     isOn = !isOn;
   }
   
