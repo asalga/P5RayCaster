@@ -39,7 +39,8 @@ module.exports = function(grunt) {
         separator: ';'
       },
       dist: {
-        src: ['src/map.js', 'src/Debugger.js', 'src/Keyboard.js', 'src/P5RayCaster.js'],
+        // src: ['src/map.js', 'src/Debugger.js', 'src/Keyboard.js', 'src/P5RayCaster.js'],
+        src: ['src/test.js'],
         dest: `${app}/P5RayCaster-min.js`
       }
     },
