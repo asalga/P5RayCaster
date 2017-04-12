@@ -1,11 +1,8 @@
 'use strict';
 
 const LIVERELOAD_PORT = 35729;
-
-// const lrSnippet = require('connect-livereload')({
-//   port: LIVERELOAD_PORT
-// });
 const serveStatic = require('serve-static');
+const app = 'app/';
 
 module.exports = function(grunt) {
 
@@ -42,8 +39,8 @@ module.exports = function(grunt) {
         separator: ';'
       },
       dist: {
-        src: ['src/map.pde', 'src/Debugger.pde', 'src/Keyboard.pde', 'src/main.pde', 'src/P5RayCaster.pde'],
-        dest: '<%= project.app %>/P5RayCaster-min.js'
+        src: ['src/map.js', 'src/Debugger.js', 'src/Keyboard.js', 'src/P5RayCaster.js'],
+        dest: `${app}/P5RayCaster-min.js`
       }
     },
     open: {
@@ -56,15 +53,15 @@ module.exports = function(grunt) {
         files: [{
           expand: true,
           src: 'index.html',
-          dest: '<%= project.app %>/'
+          dest: `${app}`
         }, {
           expand: true,
           src: 'libs/*',
-          dest: '<%= project.app %>/'
+          dest: `${app}`
         }, {
           expand: true,
           src: 'data/**/*',
-          dest: '<%= project.app %>/'
+          dest: `${app}`
         }]
       }
     },
@@ -74,38 +71,17 @@ module.exports = function(grunt) {
         livereload: true
       },
       concat: {
-        files: 'src/*.pde',
-        tasks: ['concat']
+        files: 'src/*.js',
+        tasks: ['concat'],
+        options: {
+          livereload: true
+        },
       }
-
-      // uglify: {
-      //   files: '<%= project.src %>/js/{,*/}*.js',
-      //   tasks: ['uglify:dev', 'jshint:dev']
-      // },
-      // browserify: {
-      //   files: '<%= project.src %>/js/**/*.js',
-      //   tasks: ['browserify:dev', 'jshint:dev', 'uglify:dev']
-      // },
-      // html: {
-      //   files: [page, 'src/partials/**/*.html'],
-      //   tasks: ['processhtml:dev', 'l10n', 'replaceTask', 'htmllint:dev', 'exec:dev_check_unmatched_l10n_strings']
-      // },
-      // localizationCopy: {
-      //   files: 'src/json/l10nCopy.js',
-      //   tasks: ['jshint:l10nCopy', 'processhtml:dev', 'l10n', 'replaceTask', 'htmllint:dev', 'exec:dev_check_unmatched_l10n_strings']
-      // },
-      // img: {
-      //   files: '<%= project.imgLocal %>/**/*',
-      //   tasks: ['copy:dev'],
-      //   options: {
-      //     livereload: true
-      //   }
-      // }
     },
     clean: {
       build: {
         src: [
-          '<%= project.app %>'
+          `${app}`
         ]
       }
     },
