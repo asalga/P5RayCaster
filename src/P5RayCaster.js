@@ -9,13 +9,12 @@ const imageWidth = 64;
 PVector pos = new PVector(21, 7);
 PVector dir = new PVector(-1, 0);
 PVector right = new PVector(0, -1);
-float FOV = 0.6 f;
+float FOV = 0.6;
 
 float rot = 0;
 PVector frontBuffer = new PVector(0.5, 0);
 
-let
-  lastTime = Date.now(),
+let lastTime = Date.now(),
   now = Date.now();
 
 PImage texture;
@@ -34,7 +33,7 @@ let texBuff8 = new Uint8ClampedArray(texData);
 let texBuff32 = new Uint32Array(texData);
 
 // Put these in a user controller class
-final float ROT_SPEED = 0.05 f;
+final float ROT_SPEED = 0.05;
 float walkSpeed = 5;
 
 void setup() {
@@ -130,7 +129,7 @@ void draw() {
   // For every vertical line on the viewport...
   for (int x = startX; x < width - startX; x++) {
 
-    float camX = 2.0 f * x / float(width) - 1;
+    float camX = 2.0 * x / float(width) - 1;
     PVector rayPos = new PVector(pos.x, pos.y);
     PVector rayDir = new PVector(dir.x + right.x * camX, dir.y + right.y * camX);
 
