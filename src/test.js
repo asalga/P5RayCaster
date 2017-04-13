@@ -1,14 +1,10 @@
-/*
-  Andor Salga
-  Line grid algorithm from lodev.org
-*/
 const imageWidth = 64;
 // //RayDebugger debug1;
 
 let pos = new p5.Vector(21, 7);
 let dir = new p5.Vector(-1, 0);
 let right = new p5.Vector(0, -1);
-const FOV = 0.6;
+let FOV = 0.6;
 
 let rot = 0;
 // PVector frontBuffer = new PVector(0.5, 0);

@@ -1,6 +1,11 @@
+wip/
 node_modules/
 app/
+.tmp/
+
 
 .DS_Store
 *.swp
 *.log
+
+npm-debug.log

@@ -1,4 +1,0 @@
-use of let and const
-destructuring
-default parameter
-
