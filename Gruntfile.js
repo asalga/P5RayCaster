@@ -40,7 +40,7 @@ module.exports = function(grunt) {
       },
       dist: {
         // src: ['src/map.js', 'src/Debugger.js', 'src/Keyboard.js', 'src/P5RayCaster.js'],
-        src: ['src/test.js'],
+        src: ['src/map.js', 'src/test.js'],
         dest: `${app}/P5RayCaster-min.js`
       }
     },

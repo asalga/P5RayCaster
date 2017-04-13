@@ -7,22 +7,19 @@ const imageWidth = 64;
 
 let pos = new p5.Vector(21, 7);
 let dir = new p5.Vector(-1, 0);
-let  right = new p5.Vector(0, -1);
+let right = new p5.Vector(0, -1);
 const FOV = 0.6;
 
-// let rot = 0;
+let rot = 0;
 // PVector frontBuffer = new PVector(0.5, 0);
 
-// let lastTime = Date.now(),
-//   now = Date.now();
+let lastTime = Date.now(),
+  now = Date.now();
 
 // PImage texture;
-let texture = p5.Image();
+let texture = null; // = p5.Image();
 
-//
-let canvas = document.getElementById("defaultCanvas0"),
-  ctx = canvas.getContext('2d'),
-  arrBuff,
+let arrBuff,
   buf8,
   buf32,
   imageData;
@@ -35,30 +32,63 @@ let texBuff32 = new Uint32Array(texData);
 // Put these in a user controller class
 const ROT_SPEED = 0.05;
 let walkSpeed = 5;
+let ctx;
+let canvas;
+
+let worldMap = [];
 
 function setup() {
   createCanvas(500, 20);
-}
 
-function draw() {
-  background(220);
-}
+  canvas = document.getElementById("defaultCanvas0");
+  ctx = canvas.getContext('2d');
 
 
+  let myMap = loadImage('map1.png');
+  myMap.loadPixels();
 
-/*
-void setup() {
-  size(64, 48, P2D);
+  if (myMap.width === 0 || myMap.height === 0) {
+    throw "Map level not loaded!";
+  }
+  console.log(myMap);
+
+  for (let i = 0; i < 30; i++) {
+    worldMap[i] = new Array(30);
+  }
+
+alert('fix this.')
+  let objects = {};
+  objects[color(0, 0, 0)] = 0;
+  objects[color(0, 0, 255)] = 1;
+  objects[color(0, 255, 255)] = 2;
+
+  // iterate over image
+  for (let row = 0; row < myMap.height; row++) {
+    for (let col = 0; col < myMap.width; col++) {
+      let c = color(myMap.pixels[row * myMap.height + col]);
+
+      if (c[0] === 0 && c[1] === 255 && c[2] === 0) {
+        //green(c) === 255 && red(c) === 0 && blue(c) === 0) {
+        worldMap[row][col] = 0;
+      } else {
+        worldMap[row][col] = objects[c];
+      }
+    }
+  }
+
+
+
 
   texture = loadImage('tes11.png');
   texture.loadPixels();
 
-  //
   for (let i = 0; i < 64 * 64; i++) {
-    color c = texture.pixels[i];
-    texBuff8[i * 4] = blue(c);
-    texBuff8[i * 4 + 1] = green(c);
-    texBuff8[i * 4 + 2] = red(c);
+    // let c = ;
+    // console.log(c);
+    // let c = texture.pixels;
+    texBuff8[i * 4 + 0] = texture.pixels[0];
+    texBuff8[i * 4 + 1] = texture.pixels[1];
+    texBuff8[i * 4 + 2] = texture.pixels[2];
   }
 
   imageData = ctx.getImageData(0, 0, width, height);
@@ -68,57 +98,21 @@ void setup() {
   buf32 = new Uint32Array(arrBuff);
 
   strokeCap(PROJECT);
-  debug = new RayDebugger();
+  //  debug = new RayDebugger();
 
   // Don't force the user to click on the canvas
   $('#pjs').focus();
 }
 
-void update(float dt) {
-  if (Keyboard.isKeyDown(KEY_LEFT)) {
-    rot += ROT_SPEED;
-  }
-  if (Keyboard.isKeyDown(KEY_RIGHT)) {
-    rot -= ROT_SPEED;
-  }
-  if (Keyboard.isKeyDown(KEY_UP)) {
-    moveCharacter(1, dt);
-  }
-  if (Keyboard.isKeyDown(KEY_DOWN)) {
-    moveCharacter(-1, dt);
-  }
-}
-
-void moveCharacter(doNegate, dt) {
-  let oldPosX = pos.x;
-  let oldPosY = pos.y;
-
-  pos.x += doNegate * dir.x * walkSpeed * dt;
-  pos.y += doNegate * dir.y * walkSpeed * dt;
-
-  if (worldMap[floor(pos.x)][floor(pos.y)] !== 0) {
-    pos.x = oldPosX;
-    pos.y = oldPosY;
-  }
-}
-
-void clearBackgroundBuffer() {
-  for (let i = 0; i < width * height; i++) {
-    let lightGrey = 50;
-    buf32[i] = 0xFF000000 | lightGrey << 16 | lightGrey << 8 | lightGrey;
-  }
-
-  for (let i = width * height / 2; i < width * height; i++) {
-    let darkGrey = 120;
-    buf32[i] = 0xFF000000 | darkGrey << 16 | darkGrey << 8 | darkGrey;
-  }
-}
+function draw() {
 
 
-void draw() {
+  background(220);
+  // image(texture);
+
   now = Date.now();
   clearBackgroundBuffer();
-  debug.clear();
+  // debug.clear();
 
   //
   dir.x = cos(rot);
@@ -127,34 +121,47 @@ void draw() {
   right.x = sin(rot);
   right.y = cos(rot);
 
-  int startX = 0;
+  let startX = 0;
+
+
+
+
+
+
+
+
 
   // For every vertical line on the viewport...
-  for (int x = startX; x < width - startX; x++) {
+  for (let x = startX; x < width - startX; x++) {
 
-    float camX = 2.0 * x / float(width) - 1;
-    PVector rayPos = new PVector(pos.x, pos.y);
-    PVector rayDir = new PVector(dir.x + right.x * camX, dir.y + right.y * camX);
+    let camX = 2 * x / width - 1;
+    let rayPos = createVector(pos.x, pos.y);
+    //new PVector(pos.x, pos.y);
+    let rayDir = createVector(dir.x + right.x * camX, dir.y + right.y * camX);
+    // new PVector(dir.x + right.x * camX, dir.y + right.y * camX);
 
-    int mapX = int(rayPos.x);
-    int mapY = int(rayPos.y);
+    let mapX = Math.floor(rayPos.x);
+    let mapY = Math.floor(rayPos.y);
 
-    float sideDistX;
-    float sideDistY;
+    let sideDistX;
+    let sideDistY;
 
-    float scaleX = 1.0 / rayDir.x;
-    float scaleY = 1.0 / rayDir.y;
+    let scaleX = 1 / rayDir.x;
+    let scaleY = 1 / rayDir.y;
 
     // scale the vector by the inverse of the x component,
     // which makes the x component equal to one.
     // then calculate the magnitude
-    float deltaDistX = (new PVector(1, rayDir.y * scaleX)).mag();
-    float deltaDistY = (new PVector(1, rayDir.x * scaleY)).mag();
+    let deltaDistX = createVector(1, rayDir.y * scaleX);
+    deltaDistX = deltaDistX.mag();
+    //(new PVector(1, rayDir.y * scaleX)).mag();
+    let deltaDistY = createVector(1, rayDir.x * scaleY);
+    deltaDistY = deltaDistY.mag();
+    //(new PVector(1, rayDir.x * scaleY)).mag();
 
-    float wallDist;
-    int stepX, stepY;
-    int hit = 0;
-    int side = 0;
+    let wallDist, stepX, stepY;
+    let hit = 0;
+    let side = 0;
 
     if (rayDir.x < 0) {
       stepX = -1;
@@ -195,10 +202,10 @@ void draw() {
     perpWallDist = 0;
     //Calculate distance projected on camera direction (oblique distance will give fisheye effect!)
     if (side == 0) {
-      wallDist = abs((mapX - rayPos.x + (1.0 - stepX) / 2.0) / rayDir.x);
+      wallDist = Math.abs((mapX - rayPos.x + (1.0 - stepX) / 2.0) / rayDir.x);
       perpWallDist = wallDist;
     } else {
-      wallDist = abs((mapY - rayPos.y + (1.0 - stepY) / 2.0) / rayDir.y);
+      wallDist = Math.abs((mapY - rayPos.y + (1.0 - stepY) / 2.0) / rayDir.y);
       perpWallDist = wallDist;
     }
 
@@ -210,11 +217,11 @@ void draw() {
 
     wallX -= Math.floor(wallX);
 
-    float lineHeight = abs(height / wallDist);
-    var realLineHeight = lineHeight;
+    let lineHeight = Math.abs(height / wallDist);
+    let realLineHeight = lineHeight;
 
-    lineHeight = min(lineHeight, height);
-    let texX = floor(wallX * 64);
+    lineHeight = Math.min(lineHeight, height);
+    let texX = Math.floor(wallX * 64);
 
     // If we are so close to a wall that the wall sliver is greater than the viewport,
     // it means we must sample the texture 'lower down'.
@@ -249,7 +256,7 @@ void draw() {
       var texYNormalized = ((viewPortY / width) - (cvsStartY / width)) / sliverHeightPx;
 
       // map 0..1 to 0..imageHeight
-      var yTexel = floor(start + (end - start) * texYNormalized);
+      let yTexel = floor(start + (end - start) * texYNormalized);
       // let ySampleEnd = 64 - ySampleStart;
       // yTexel = ySampleStart + imageWidth * floor( ySampleEnd * texYpercent);
 
@@ -260,49 +267,106 @@ void draw() {
     }
   }
 
+
+
+
+
+
+
+
   let delta = (now - lastTime) / 1000.0;
 
-  debug.addString('fps:' + frameRate);
-  debug.addString('delta:' + delta);
+  // debug.addString('fps:' + frameRate);
+  // debug.addString('delta:' + delta);
 
   update(delta);
-  imageData.data.set(buf8);
+
+  // imageData.data.set(buf8);
   ctx.putImageData(imageData, 0, 0);
-  debug.draw();
+  // debug.draw();
   lastTime = Date.now();
 }
 
-int sampleTexture(int index) {
+function update(dt) {
+  // if (Keyboard.isKeyDown(KEY_LEFT)) {
+  //   rot += ROT_SPEED;
+  // }
+  // if (Keyboard.isKeyDown(KEY_RIGHT)) {
+  //   rot -= ROT_SPEED;
+  // }
+  // if (Keyboard.isKeyDown(KEY_UP)) {
+  //   moveCharacter(1, dt);
+  // }
+  // if (Keyboard.isKeyDown(KEY_DOWN)) {
+  //   moveCharacter(-1, dt);
+  // }
+}
+
+
+function clearBackgroundBuffer() {
+  for (let i = 0; i < width * height; i++) {
+    let lightGrey = 50;
+    buf32[i] = 0xFF000000 | lightGrey << 16 | lightGrey << 8 | lightGrey;
+  }
+
+  for (let i = width * height / 2; i < width * height; i++) {
+    let darkGrey = 120;
+    buf32[i] = 0xFF000000 | darkGrey << 16 | darkGrey << 8 | darkGrey;
+  }
+}
+
+function moveCharacter(doNegate, dt) {
+  let oldPosX = pos.x;
+  let oldPosY = pos.y;
+
+  pos.x += doNegate * dir.x * walkSpeed * dt;
+  pos.y += doNegate * dir.y * walkSpeed * dt;
+
+  if (worldMap[Math.floor(pos.x)][Math.floor(pos.y)] !== 0) {
+    pos.x = oldPosX;
+    pos.y = oldPosY;
+  }
+}
+
+
+/*
+void draw() {
+ 
+
+}
+*/
+
+
+function sampleTexture(index) {
   return texBuff8[index];
 }
 
-void keyReleased() {
+function keyReleased() {
   Keyboard.setKeyDown(keyCode, false);
 }
 
-void keyPressed() {
-  Keyboard.setKeyDown(keyCode, true);
+function keyPressed() {
+  // Keyboard.setKeyDown(keyCode, true);
 
-  if (Keyboard.isKeyDown(KEY_R)) {
-    lineWeight += 2;
-  }
-  if (Keyboard.isKeyDown(KEY_E)) {
-    lineWeight -= 2;
-    lineWeight = max(1, lineWeight);
-  }
+  // if (Keyboard.isKeyDown(KEY_R)) {
+  //   lineWeight += 2;
+  // }
+  // if (Keyboard.isKeyDown(KEY_E)) {
+  //   lineWeight -= 2;
+  //   lineWeight = max(1, lineWeight);
+  // }
 
-  if (Keyboard.isKeyDown(KEY_Q)) {
-    gameWidth -= 50;
-    height -= 50;
-  }
+  // if (Keyboard.isKeyDown(KEY_Q)) {
+  //   gameWidth -= 50;
+  //   height -= 50;
+  // }
 
-  if (Keyboard.isKeyDown(KEY_W)) {
-    gameWidth += 50;
-    height += 50;
-  }
+  // if (Keyboard.isKeyDown(KEY_W)) {
+  //   gameWidth += 50;
+  //   height += 50;
+  // }
 
-  if (Keyboard.isKeyDown(KEY_D)) {
-    debug.toggle();
-  }
+  // if (Keyboard.isKeyDown(KEY_D)) {
+  //   debug.toggle();
+  // }
 }
-*/
