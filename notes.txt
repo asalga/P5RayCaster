@@ -1,0 +1,32 @@
+1) Fix texturing
+2) Fix raycasting not working
+3) imagesplitter
+
+
+Grunt tasks
+- add jshint
+- add browserify?
+- add kb
+- add browserify
+- add lodash
+- add watch to index.html
+
+
+Objects 
+ - Add solution for sampling textures
+ - Add GO?
+ - Move Debugger to 
+ - Text
+ - Add Howl?
+
+
+Extra
+- destructuring
+- default parameter
+- promises?
+
+CSS
+- Add simple css to center cvs
+
+
+

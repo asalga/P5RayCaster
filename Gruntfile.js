@@ -39,7 +39,8 @@ module.exports = function(grunt) {
         separator: ';'
       },
       dist: {
-        src: ['src/map.js', 'src/Debugger.js', 'src/Keyboard.js', 'src/P5RayCaster.js'],
+        // cwd: 'src/',
+        src: ['src/TextureStore.js','src/render.js', 'src/texture.js','src/map.js', 'src/Debugger.js', 'src/Keyboard.js', 'src/P5RayCaster.js'],
         dest: `${app}/P5RayCaster-min.js`
       }
     },
@@ -52,15 +53,16 @@ module.exports = function(grunt) {
       dev: {
         files: [{
           expand: true,
-          src: 'index.html',
+          src: ['index.html', 'style.css'],
           dest: `${app}`
         }, {
           expand: true,
-          src: 'libs/*',
+          src: 'libs/*.js',
           dest: `${app}`
         }, {
           expand: true,
-          src: 'data/**/*',
+          cwd: 'data',
+          src: '*.png',
           dest: `${app}`
         }]
       }
@@ -70,7 +72,14 @@ module.exports = function(grunt) {
         spawn: false,
         livereload: true
       },
-      concat: {
+      markup: {
+        files: ['index.html', 'style.css'],
+        tasks: ['copy'],
+        options: {
+          livereload: true
+        },
+      },
+      js: {
         files: 'src/*.js',
         tasks: ['concat'],
         options: {
