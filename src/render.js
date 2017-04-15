@@ -1,8 +1,6 @@
-
-
 const imageWidth = 64;
 
-let pos = [3, 3];
+let pos = [21, 7];
 let dir = [1, 0];
 let right = [0, 1];
 const ROT_SPEED = 0.05;
@@ -35,8 +33,8 @@ Renderer.prototype.init = function() {
 
 
 Renderer.prototype.sampleTexture = function(texID, index) {
-  let texture = TextureStore.get(0);
- return texture.pixels[index];
+  let texture = TextureStore.get(texID);
+  return texture.pixels[index];
 }
 
 Renderer.prototype.drawFloorAndCeiling = function() {
@@ -54,6 +52,7 @@ Renderer.prototype.drawFloorAndCeiling = function() {
 /*
  */
 Renderer.prototype.render = function() {
+	rot+= 0.01;
   this.now = Date.now();
   this.drawFloorAndCeiling();
   // debug.clear();
@@ -114,6 +113,7 @@ Renderer.prototype.render = function() {
       sideDistY = (mapY + 1.0 - rayPos[1]) * deltaDistY;
     }
 
+    let texID = 0;
     ////////////////////////////////////////////////////////////////
     // Search
     while (hit === 0) {
@@ -129,6 +129,7 @@ Renderer.prototype.render = function() {
 
       if (worldMap[mapX][mapY] !== 0) {
         hit = 1;
+        texID = mapping[ worldMap[mapX][mapY] ];
       }
     }
 
@@ -200,7 +201,6 @@ Renderer.prototype.render = function() {
 
       let tex = yTexel * (imageWidth * 4) + texX * 4;
 
-      let texID = 0;
       let [r, g, b] = [
         this.sampleTexture(texID, tex + 2) << 16,
         this.sampleTexture(texID, tex + 1) << 8,

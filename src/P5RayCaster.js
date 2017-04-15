@@ -1,13 +1,16 @@
 let cvsImageData = null;
 let renderer = null;
 
-
 function setup() {
   createCanvas(320, 240);
   renderer = new Renderer();
   renderer.init();
 
-  p5Images[0].loadPixels();
+  p5Images.forEach((v, i, a) => {
+    p5Images[i].loadPixels();
+  });
+
+  loadMap();
 }
 
 function draw() {
@@ -15,7 +18,9 @@ function draw() {
 }
 
 function preload() {
-  p5Images[0] = loadImage('tes11.png')
+  p5Images.push(loadImage('map1.png'));
+  p5Images.push(loadImage('stone.gif'));
+  p5Images.push(loadImage('tes11.png'));
 }
 
 

@@ -40,7 +40,7 @@ module.exports = function(grunt) {
       },
       dist: {
         // cwd: 'src/',
-        src: ['src/TextureStore.js','src/render.js', 'src/texture.js','src/map.js', 'src/Debugger.js', 'src/Keyboard.js', 'src/P5RayCaster.js'],
+        src: ['src/utils.js','src/TextureStore.js','src/render.js', 'src/texture.js','src/map.js', 'src/Debugger.js', 'src/Keyboard.js', 'src/P5RayCaster.js'],
         dest: `${app}/P5RayCaster-min.js`
       }
     },
@@ -62,7 +62,7 @@ module.exports = function(grunt) {
         }, {
           expand: true,
           cwd: 'data',
-          src: '*.png',
+          src: ['*.{png,jpg,jpeg,gif}'],
           dest: `${app}`
         }]
       }

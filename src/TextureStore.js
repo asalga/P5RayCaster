@@ -6,7 +6,7 @@ let height = 240;
 
 let TextureStore = {};
 TextureStore.get = function(textureID) {
-  return p5Images[0];
+  return p5Images[textureID];
 };
 
 // module.exports.TextureStore;
