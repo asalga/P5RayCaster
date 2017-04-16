@@ -34,16 +34,27 @@ module.exports = function(grunt) {
         }
       }
     },
-    concat: {
-      options: {
-        separator: ';'
-      },
+    browserify: {
       dist: {
-        // cwd: 'src/',
-        src: ['src/utils.js','src/TextureStore.js','src/render.js', 'src/texture.js','src/map.js', 'src/Debugger.js', 'src/Keyboard.js', 'src/P5RayCaster.js'],
-        dest: `${app}/P5RayCaster-min.js`
+        files: {
+          'app/min.js': ['src/*.js']
+        },
+        options: {
+
+        }
       }
     },
+    // concat: {
+    //   options: {
+    //     separator: ';'
+    //   },
+    //   dist: {
+    //     // cwd: 'src/',
+    //     src: ['src/utils.js','src/TextureStore.js','src/render.js', 'src/texture.js','src/map.js', 'src/Debugger.js', 'src/Keyboard.js', 'src/P5RayCaster.js'],
+    //     dest: `${app}/P5RayCaster-min.js`
+    //   }
+    // },
+
     open: {
       server: {
         path: 'http://localhost:<%= connect.options.port %>'
@@ -81,7 +92,7 @@ module.exports = function(grunt) {
       },
       js: {
         files: 'src/*.js',
-        tasks: ['concat'],
+        tasks: ['browserify'],
         options: {
           livereload: true
         },
@@ -98,7 +109,8 @@ module.exports = function(grunt) {
 
   grunt.registerTask('default', [
     'copy:dev',
-    'concat',
+    // 'concat',
+    'browserify',
     'connect:livereload',
     'open',
     'watch'
