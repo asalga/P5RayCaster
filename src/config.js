@@ -2,14 +2,76 @@ var config = {
   width: 180 * 3,
   height: 120 * 3,
   textures: [
-    'map1.png',
-    'stone.gif',
-    'tes11.png'
+    'map.png',
+    'bricks1.png',
+    'bricks2.png'
   ],
+
+  // pink
+  // gold
+  // tomato
+  // teal
+  //tan
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   colorToImageMap: {
-    0x000000: 'map1.png',
-    0xFF0000: 'stone.gif',
-    0x0000FF: 'tes11.png'
+
+    // none....fix this
+    0x000000: 'map.png',
+    
+    //red
+    0xFF0000: 'bricks1.png',
+
+    // green    
+    0x00FF00: '',
+
+    // blue
+    0x0000FF: 'bricks2.png',
+
+    // purple   
+    0x800080: '',
+
+    // maroon   
+    0x800000: '',
+
+    // black    
+    0x000000: '',
+
+    // magenta  
+    0xFF00FF: '',
+
+    // yellow   
+    0xFFFF00: '',
+
+    // white    
+    0xFFFFFF: '',
+
+    // cyan     
+    0x00FFFF: '',
+
+    // deeppink 
+    0xFF00AA: '',
+
+    // orange   
+    0xFFA500: '',
+
+    // grey     
+    0x808080: ''
+
   }
 };
 

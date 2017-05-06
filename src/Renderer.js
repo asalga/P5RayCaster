@@ -144,6 +144,12 @@ Renderer.prototype.render = function() {
       if (worldMap[mapX][mapY] !== 0) {
         hit = 1;
         texID = mapping[worldMap[mapX][mapY]];
+
+        if(typeof texID === 'undefined'){
+          console.log(worldMap[mapX][mapY]);
+          throw new Error('Invalid textureID');
+        }
+
       }
     }
 

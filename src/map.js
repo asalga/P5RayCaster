@@ -5,7 +5,7 @@ window.worldMap = [];
 
 // FIX: should load 
 var loadMap = function() {
-  let map = p5Images['map1.png'];
+  let map = p5Images['map.png'];
 
   for (let row = 0; row < map.height; row++) {
 
@@ -20,7 +20,9 @@ var loadMap = function() {
       let b = map.pixels[index + 2];
       let a = map.pixels[index + 3];
 
-      let hex = Utils.RGBToHex(r, g, b);
+      let hex = b << 16 | g << 8 | r;
+      //Utils.RGBToHex(r, g, b);
+      console.log(r,g,b,hex);
       worldMap[row][col] = hex;
     }
   }

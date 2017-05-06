@@ -16,6 +16,7 @@ var newp5 = new p5(function(s) {
   s.preload = function() {
     cfg.textures.forEach(function(v, i, a) {
       p5Images[v] = s.loadImage(v);
+      debugger;
     });
   };
 

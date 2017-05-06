@@ -63,7 +63,6 @@ module.exports = function(grunt) {
     copy: {
       dev: {
         files: [{
-          expand: true,
           src: ['index.html', 'style.css'],
           dest: `${app}`
         }, {
@@ -72,7 +71,8 @@ module.exports = function(grunt) {
           dest: `${app}`
         }, {
           expand: true,
-          cwd: 'data',
+          cwd: 'data/images/',
+          flatten: true,
           src: ['*.{png,jpg,jpeg,gif}'],
           dest: `${app}`
         }]
@@ -90,9 +90,23 @@ module.exports = function(grunt) {
           livereload: true
         },
       },
+      data: {
+        files: 'data/**/*',
+        tasks: ['copy'],
+        options: {
+          livereload: true
+        },
+      },
       js: {
         files: 'src/*.js',
         tasks: ['browserify'],
+        options: {
+          livereload: true
+        },
+      },
+      images: {
+        files: 'data/images/*.png',
+        tasks: ['copy'],
         options: {
           livereload: true
         },
@@ -107,9 +121,9 @@ module.exports = function(grunt) {
     },
   });
 
+  //
   grunt.registerTask('default', [
     'copy:dev',
-    // 'concat',
     'browserify',
     'connect:livereload',
     'open',
