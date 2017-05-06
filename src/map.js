@@ -20,7 +20,7 @@ var loadMap = function() {
       let b = map.pixels[index + 2];
       let a = map.pixels[index + 3];
 
-      let hex = b << 16 | g << 8 | r;
+      let hex = r << 16 | g << 8 | b;
       //Utils.RGBToHex(r, g, b);
       // console.log(r,g,b,hex);
       worldMap[row][col] = hex;

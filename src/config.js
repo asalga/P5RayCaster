@@ -4,30 +4,29 @@ var config = {
   textures: [
     'map.png',
     'bricks1.png',
-    'bricks2.png'
+    'bricks2.png',
+    'blue_bricks.png'
   ],
 
   // pink
   // gold
   // tomato
   // teal
-  //tan
-
-
+  // tan
 
   colorToImageMap: {
 
     // none....fix this
     0x000000: 'map.png',
-    
-    //red
+
+    // red
     0xFF0000: 'bricks1.png',
+
+    // blue
+    0x0000FF: 'blue_bricks.png',
 
     // green    
     0x00FF00: '',
-
-    // blue
-    0x0000FF: 'bricks2.png',
 
     // purple   
     0x800080: '',

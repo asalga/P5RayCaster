@@ -176,11 +176,12 @@ Renderer.prototype.render = function() {
     // where to start and end drawing on the canvas in the Y direction
     let cvsStartY = Math.floor(height / 2 - lineHeight / 2) * width;
     let cvsEndY = cvsStartY + (lineHeight * width);
-    // cvsEndY = 100;
 
     // To be more efficient, we start iterating only where the actual sliver begins.
     // We also exit early, only iterating up to the end of the sliver.
     for (let viewPortY = cvsStartY; viewPortY < cvsEndY; viewPortY += width) {
+
+if(viewPortY > width * height - (width * 20) ){break;}
 
       // sliverHeightPx ranges from 0..height
       let sliverHeightPx = (cvsEndY - cvsStartY) / width;
