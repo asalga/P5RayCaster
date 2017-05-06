@@ -1,6 +1,6 @@
 var config = {
-  width: 180 * 2,
-  height: 120 * 2,
+  width: 180 * 1,
+  height: 120 * 1,
   textures: [
     'map.png',
     'bricks1.png',

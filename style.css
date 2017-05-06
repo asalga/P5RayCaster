@@ -1,9 +1,13 @@
 body {
   margin: 0;
   padding: 0;
-  background: #000;
+  background: #808080;
+  border: 2px solid blue;
+  overflow: hidden;
 }
 
-canvas {
-  width: 100%;
+canvas#defaultCanvas0 {
+  width: 100% !important;
+  height: auto !important;
+  image-rendering: pixelated;
 }
