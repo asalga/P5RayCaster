@@ -4,9 +4,12 @@ var cfg = require('./config');
 var kb = require('keyboardjs');
 var p5 = require('p5');
 var Renderer = require('./Renderer');
+var user = require('./User');
 
 window.p5Images = {};
 
+let lastTime = Date.now();
+let now = Date.now();
 
 var newp5 = new p5(function(s) {
 
@@ -16,16 +19,23 @@ var newp5 = new p5(function(s) {
   s.preload = function() {
     cfg.textures.forEach(function(v, i, a) {
       p5Images[v] = s.loadImage(v);
-      debugger;
+      // debugger;
     });
   };
 
   s.draw = function() {
+    now = Date.now();
+
+    let dt = (now - lastTime) / 1000.0;
+    console.log(dt);
+
+    lastTime = Date.now();
+
+    user.update(dt);
     renderer.render();
   };
 
-  s.keyPressed = function() {
-  };
+  s.keyPressed = function() {};
 
   s.setup = function() {
     s.createCanvas(cfg.width, cfg.height);
@@ -40,38 +50,7 @@ var newp5 = new p5(function(s) {
   };
 });
 
-//
-// void update(dt) {
-//   if (Keyboard.isKeyDown(KEY_LEFT)) {
-//     rot += ROT_SPEED;
-//   }
-//   if (Keyboard.isKeyDown(KEY_RIGHT)) {
-//     rot -= ROT_SPEED;
-//   }
-//   if (Keyboard.isKeyDown(KEY_UP)) {
-//     moveCharacter(1, dt);
-//   }
-//   if (Keyboard.isKeyDown(KEY_DOWN)) {
-//     moveCharacter(-1, dt);
-//   }
-// }
 
-// void moveCharacter(doNegate, dt) {
-//   let oldPosX = pos.x;
-//   let oldPosY = pos.y;
-
-//   pos.x += doNegate * dir.x * walkSpeed * dt;
-//   pos.y += doNegate * dir.y * walkSpeed * dt;
-
-//   if (worldMap[Math.floor(pos.x)][Math.floor(pos.y)] !== 0) {
-//     pos.x = oldPosX;
-//     pos.y = oldPosY;
-//   }
-// }
-
-// /*
-
-// */
 
 // void keyReleased() {
 //   Keyboard.setKeyDown(keyCode, false);

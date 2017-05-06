@@ -1,6 +1,6 @@
 var config = {
-  width: 180 * 3,
-  height: 120 * 3,
+  width: 180 * 2,
+  height: 120 * 2,
   textures: [
     'map.png',
     'bricks1.png',
@@ -12,19 +12,6 @@ var config = {
   // tomato
   // teal
   //tan
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

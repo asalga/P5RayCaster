@@ -1,21 +1,9 @@
 var mapping = require('./config').colorToImageMap;
 var cfg = require('./config');
-
-
+var user = require('./User');
 
 // var TextureStore = require('./TextureStore');
 const imageWidth = 64;
-
-
-
-let pos = [21, 7];
-let dir = [1, 0];
-let right = [0, 1];
-const ROT_SPEED = 0.05;
-let walkSpeed = 5;
-let rot = 0;
-
-
 
 function Renderer() {
   let canvas = $("#defaultCanvas0")[0];
@@ -27,8 +15,8 @@ function Renderer() {
   this.buf8 = null;
   this.buf32 = null;
 
-  this.lastTime = Date.now();
-  this.now = Date.now();
+//  this.lastTime = Date.now();
+//  this.now = Date.now();
 }
 
 Renderer.prototype.init = function() {
@@ -36,7 +24,6 @@ Renderer.prototype.init = function() {
   this.buf8 = new Uint8ClampedArray(this.arrBuff);
   this.buf32 = new Uint32Array(this.arrBuff);
 };
-
 
 Renderer.prototype.sampleTexture = function(texID, index) {
   let tex = p5Images[texID];
@@ -66,17 +53,10 @@ Renderer.prototype.render = function() {
   let width = cfg.width;
   let height = cfg.height;
 
-  rot += 0.01;
+
   this.now = Date.now();
 
   this.drawFloorAndCeiling();
-
-  //
-  dir[0] = Math.cos(rot);
-  dir[1] = -Math.sin(rot);
-
-  right[0] = Math.sin(rot);
-  right[1] = Math.cos(rot);
 
   let startX = 0;
   let mapX;
@@ -88,8 +68,8 @@ Renderer.prototype.render = function() {
   for (let x = startX; x < width - startX; x++) {
 
     let camX = (2 * x / width) - 1;
-    let rayPos = [pos[0], pos[1]];
-    let rayDir = [dir[0] + right[0] * camX, dir[1] + right[1] * camX];
+    let rayPos = [user.pos[0], user.pos[1]];
+    let rayDir = [user.dir[0] + user.right[0] * camX, user.dir[1] + user.right[1] * camX];
 
     mapX = Math.floor(rayPos[0]);
     mapY = Math.floor(rayPos[1]);
@@ -203,6 +183,7 @@ Renderer.prototype.render = function() {
     // where to start and end drawing on the canvas in the Y direction
     let cvsStartY = Math.floor(height / 2 - lineHeight / 2) * width;
     let cvsEndY = cvsStartY + (lineHeight * width);
+    // cvsEndY = 100;
 
     // To be more efficient, we start iterating only where the actual sliver begins.
     // We also exit early, only iterating up to the end of the sliver.
@@ -231,12 +212,11 @@ Renderer.prototype.render = function() {
     }
   }
 
-  let delta = (this.now - this.lastTime) / 1000.0;
-
+  
   // update(delta);
   this.cvsImageData.data.set(this.buf8);
   this.ctx.putImageData(this.cvsImageData, 0, 0);
-  lastTime = Date.now();
+  // lastTime = Date.now();
 }
 
 module.exports = Renderer;
