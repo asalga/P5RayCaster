@@ -1,8 +1,6 @@
 3) imagesplitter
 
 Grunt tasks
-- add jshint
-- add kb
 - add lodash
 - add watch to index.html
 
@@ -12,7 +10,6 @@ Objects
  - Move Debugger to 
  - Text
  - Add Howl?
-
 
 Extra
 - destructuring

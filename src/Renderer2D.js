@@ -1,6 +1,6 @@
-var mapping = require('./config').colorToImageMap;
-var cfg = require('./config');
-var user = require('./User');
+const cfg = require('./config');
+const mapping = cfg.colorToImageMap;
+const user = require('./User');
 
 // var TextureStore = require('./TextureStore');
 const imageWidth = 64;

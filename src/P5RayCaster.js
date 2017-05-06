@@ -1,7 +1,7 @@
 const kb = require('keyboardjs');
 const p5 = require('p5');
 const cfg = require('./config');
-const Renderer = require('./Renderer');
+const Renderer = require('./Renderer2D');
 const user = require('./User');
 
 window.p5Images = {};
