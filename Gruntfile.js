@@ -1,10 +1,9 @@
-'use strict';
-
 const LIVERELOAD_PORT = 35729;
 const serveStatic = require('serve-static');
 const app = 'app/';
 
 module.exports = function(grunt) {
+  'use strict';
 
   require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
 
@@ -29,11 +28,29 @@ module.exports = function(grunt) {
               serveStatic('/app'),
               connect().use('/app', serveStatic('./app')),
               serveStatic('app')
-            ]
+            ];
           }
         }
       }
     },
+
+
+    /*
+     *
+     */
+    jshint: {
+      options: {
+        'esversion': 6
+      },
+      all: [
+        'Gruntfile.js', 'src/*.js'
+      ]
+    },
+
+
+    /*
+     *
+     */
     browserify: {
       dist: {
         files: {
@@ -78,6 +95,10 @@ module.exports = function(grunt) {
         }]
       }
     },
+
+    /*
+     *
+     */
     watch: {
       options: {
         spawn: false,
@@ -124,9 +145,23 @@ module.exports = function(grunt) {
   //
   grunt.registerTask('default', [
     'copy:dev',
+    'jshint',
     'browserify',
     'connect:livereload',
     'open',
     'watch'
   ]);
+
+
+
+
+
+
+
+
+
+
+
+
+  grunt.registerTask('dist', []);
 };

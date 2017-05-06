@@ -14,9 +14,6 @@ function Renderer() {
   this.arrBuff = null;
   this.buf8 = null;
   this.buf32 = null;
-
-//  this.lastTime = Date.now();
-//  this.now = Date.now();
 }
 
 Renderer.prototype.init = function() {
@@ -28,7 +25,7 @@ Renderer.prototype.init = function() {
 Renderer.prototype.sampleTexture = function(texID, index) {
   let tex = p5Images[texID];
   return tex.pixels[index];
-}
+};
 
 /*
  */
@@ -52,9 +49,6 @@ Renderer.prototype.drawFloorAndCeiling = function() {
 Renderer.prototype.render = function() {
   let width = cfg.width;
   let height = cfg.height;
-
-
-  this.now = Date.now();
 
   this.drawFloorAndCeiling();
 
@@ -129,7 +123,6 @@ Renderer.prototype.render = function() {
           console.log(worldMap[mapX][mapY]);
           throw new Error('Invalid textureID');
         }
-
       }
     }
 
@@ -212,11 +205,8 @@ Renderer.prototype.render = function() {
     }
   }
 
-  
-  // update(delta);
   this.cvsImageData.data.set(this.buf8);
   this.ctx.putImageData(this.cvsImageData, 0, 0);
-  // lastTime = Date.now();
-}
+};
 
 module.exports = Renderer;

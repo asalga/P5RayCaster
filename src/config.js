@@ -35,9 +35,6 @@ var config = {
     // maroon   
     0x800000: '',
 
-    // black    
-    0x000000: '',
-
     // magenta  
     0xFF00FF: '',
 

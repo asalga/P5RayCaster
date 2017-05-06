@@ -22,7 +22,7 @@ var loadMap = function() {
 
       let hex = b << 16 | g << 8 | r;
       //Utils.RGBToHex(r, g, b);
-      console.log(r,g,b,hex);
+      // console.log(r,g,b,hex);
       worldMap[row][col] = hex;
     }
   }

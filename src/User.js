@@ -4,6 +4,8 @@ let Keys = {};
 
 const RotSpeed = 1.85;
 const WalkSpeed = 2;
+const BoundingRadius = 1;
+
 
 let pressed = function(e) {
   Keys[e.code] = true;
@@ -29,7 +31,6 @@ let User = {
 
     this.pos[0] += doNegate * this.dir[0] * WalkSpeed * dt;
     this.pos[1] += doNegate * this.dir[1] * WalkSpeed * dt;
-    // console.log(this.pos);
     // if (worldMap[Math.floor(pos.x)][Math.floor(pos.y)] !== 0) {
     //   pos.x = oldPosX;
     //   pos.y = oldPosY;
@@ -37,23 +38,21 @@ let User = {
   },
 
   update: function(dt) {
-    // console.log(dt);
     let dirty = false;
 
-    if (Keys['ArrowRight']) {
+    if (Keys.ArrowRight) {
       this.rot -= RotSpeed * dt;
       dirty = true;
-
     }
-    if (Keys['ArrowLeft']) {
+    if (Keys.ArrowLeft) {
       this.rot += RotSpeed * dt;
       dirty = true;
     }
-    if (Keys['ArrowUp']) {
+    if (Keys.ArrowUp) {
       this.moveCharacter(1, dt);
       dirty = true;
     }
-    if (Keys['ArrowDown']) {
+    if (Keys.ArrowDown) {
       this.moveCharacter(-1, dt);
       dirty = true;
     }
