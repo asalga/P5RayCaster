@@ -12,13 +12,16 @@ let now = Date.now();
 var newp5 = new p5(function(s) {
   'use strict';
 
+
   let renderer = null;
+  let hud = null;
 
   //
   s.preload = function() {
     cfg.textures.forEach(function(v, i, a) {
       p5Images[v] = s.loadImage(v);
     });
+    hud = s.loadImage('hud.png');
   };
 
   s.draw = function() {
@@ -29,6 +32,10 @@ var newp5 = new p5(function(s) {
 
     user.update(dt);
     renderer.render();
+
+    s.image(hud,0,cfg.height-hud.height);
+
+    document.getElementById('debug').innerHTML =  dt;
   };
 
   s.keyPressed = function() {};

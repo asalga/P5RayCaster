@@ -1,11 +1,10 @@
-let kb = require('keyboardjs');
+const kb = require('keyboardjs');
 
 let Keys = {};
 
 const RotSpeed = 1.85;
 const WalkSpeed = 2;
 const BoundingRadius = 1;
-
 
 let pressed = function(e) {
   Keys[e.code] = true;
@@ -14,10 +13,9 @@ let released = function(e) {
   Keys[e.code] = false;
 };
 
-kb.bind('left', pressed, released);
-kb.bind('right', pressed, released);
-kb.bind('up', pressed, released);
-kb.bind('down', pressed, released);
+['left', 'right', 'up', 'down'].forEach(function(i) {
+  kb.bind(i, pressed, released);
+});
 
 let User = {
   rot: 0,
@@ -26,8 +24,7 @@ let User = {
   right: [0, 1],
 
   moveCharacter: function(doNegate, dt) {
-    let oldPosX = this.pos[0];
-    let oldPosY = this.pos[1];
+    let [oldPosX, oldPosY] = this.pos;
 
     this.pos[0] += doNegate * this.dir[0] * WalkSpeed * dt;
     this.pos[1] += doNegate * this.dir[1] * WalkSpeed * dt;

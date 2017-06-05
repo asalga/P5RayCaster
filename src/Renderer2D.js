@@ -2,6 +2,7 @@ const cfg = require('./config');
 const mapping = cfg.colorToImageMap;
 const user = require('./User');
 
+let test = 0;
 // var TextureStore = require('./TextureStore');
 const imageWidth = 64;
 
@@ -30,8 +31,7 @@ Renderer.prototype.sampleTexture = function(texID, index) {
 /*
  */
 Renderer.prototype.drawFloorAndCeiling = function() {
-  let width = cfg.width,
-    height = cfg.height;
+  let { width, height } = cfg;
 
   for (let i = 0; i < width * height; i++) {
     let lightGrey = 50;
@@ -47,16 +47,15 @@ Renderer.prototype.drawFloorAndCeiling = function() {
 /*
  */
 Renderer.prototype.render = function() {
-  let width = cfg.width;
-  let height = cfg.height;
-
+  let { width, height } = cfg;
+  test++;
   this.drawFloorAndCeiling();
 
   let startX = 0;
-  let mapX;
-  let mapY;
-  let sideDistX;
-  let sideDistY;
+  let mapX,
+    mapY,
+    sideDistX,
+    sideDistY;
 
   // For every vertical line on the viewport...
   for (let x = startX; x < width - startX; x++) {
@@ -117,9 +116,9 @@ Renderer.prototype.render = function() {
 
       if (worldMap[mapX][mapY] !== 0) {
         hit = 1;
-        texID = mapping[worldMap[mapX][mapY]];
+        texID = mapping.get( worldMap[mapX][mapY] );
 
-        if(typeof texID === 'undefined'){
+        if (typeof texID === 'undefined') {
           console.log(worldMap[mapX][mapY]);
           throw new Error('Invalid textureID');
         }
@@ -181,7 +180,9 @@ Renderer.prototype.render = function() {
     // We also exit early, only iterating up to the end of the sliver.
     for (let viewPortY = cvsStartY; viewPortY < cvsEndY; viewPortY += width) {
 
-if(viewPortY > width * height - (width * 20) ){break;}
+      if (viewPortY > width * height - (width * 20)) {
+        break;
+      }
 
       // sliverHeightPx ranges from 0..height
       let sliverHeightPx = (cvsEndY - cvsStartY) / width;
@@ -208,6 +209,11 @@ if(viewPortY > width * height - (width * 20) ){break;}
 
   this.cvsImageData.data.set(this.buf8);
   this.ctx.putImageData(this.cvsImageData, 0, 0);
+
+  // Debugger.section['render']['fps'] = 10;
+  // Debugger.sections['render'].fps = test;
+
+
 };
 
 module.exports = Renderer;

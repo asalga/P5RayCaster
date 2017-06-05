@@ -13,3 +13,13 @@ canvas#defaultCanvas0 {
   height: auto !important;
   image-rendering: pixelated;
 }
+
+#debug {
+  position: absolute;
+  z-index: 1;
+  display: inline-block;
+  color: #ff008d;
+  background-color: transparent;
+  font-size: 14pt;
+  font-family: monospace;
+}

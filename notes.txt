@@ -1,5 +1,7 @@
 3) imagesplitter
 
+
+
 Grunt tasks
 - add lodash
 - add watch to index.html
@@ -15,3 +17,27 @@ Extra
 - destructuring
 - default parameter
 - promises?
+
+
+
+
+     <!-- build:include src/partials/header/header.html -->
+        <!-- /build -->
+
+             <!-- build:include src/partials/triple_block/triple_block.html -->
+        <!-- /build -->
+
+        <!-- build:include src/partials/card_fullbleed/card_fullbleed.html -->
+        <!-- /build -->
+
+        <!-- build:include src/partials/carousel/carousel.html -->
+        <!-- /build -->
+
+        <!-- build:include src/partials/form/form.html -->
+        <!-- /build -->
+
+        <!-- build:include src/partials/tbd/tbd.html -->
+        <!-- /build -->
+
+        <!-- build:include src/partials/tout/tout.html -->
+        <!-- /build -->

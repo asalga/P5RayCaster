@@ -1,3 +1,20 @@
+// TODO: convert to reading data file
+var colorToImageMap = new Map();
+colorToImageMap.set(0x000000, 'map.png');
+colorToImageMap.set(0xFF0000, 'bricks1.png');
+colorToImageMap.set(0x800080, 'purple');
+colorToImageMap.set(0x0000FF, 'blue_bricks.png');
+colorToImageMap.set(0x00FF00, 'green');
+colorToImageMap.set(0x800000, 'maroon');
+colorToImageMap.set(0xFF00FF, 'magenta');
+colorToImageMap.set(0xFFFF00, 'yellow');
+colorToImageMap.set(0xFFFFFF, 'white');
+colorToImageMap.set(0x00FFFF, 'cyan');
+colorToImageMap.set(0xFF00AA, 'deeppink');
+colorToImageMap.set(0xFFA500, 'orange');
+colorToImageMap.set(0x808080, 'grey');
+
+
 var config = {
   width: 90 * 2,
   height: 60 * 2,
@@ -7,55 +24,8 @@ var config = {
     'bricks2.png',
     'blue_bricks.png'
   ],
-
-  // pink
-  // gold
-  // tomato
-  // teal
-  // tan
-
-  colorToImageMap: {
-
-    // none....fix this
-    0x000000: 'map.png',
-
-    // red
-    0xFF0000: 'bricks1.png',
-
-    // blue
-    0x0000FF: 'blue_bricks.png',
-
-    // green    
-    0x00FF00: '',
-
-    // purple   
-    0x800080: '',
-
-    // maroon   
-    0x800000: '',
-
-    // magenta  
-    0xFF00FF: '',
-
-    // yellow   
-    0xFFFF00: '',
-
-    // white    
-    0xFFFFFF: '',
-
-    // cyan     
-    0x00FFFF: '',
-
-    // deeppink 
-    0xFF00AA: '',
-
-    // orange   
-    0xFFA500: '',
-
-    // grey     
-    0x808080: ''
-
-  }
+  colorToImageMap
 };
+
 
 module.exports = config;

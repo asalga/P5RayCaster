@@ -1,3 +1,21 @@
+/*
+	Purpose of this debugger is to show data of objects in real-time
+*/
+// class RealTimeVars{
+// singleton
+// pages
+
+//show/hide
+
+//paginate
+
+//}
+
+
+
+
+
+
 // class RayDebugger {
 //   private ArrayList strings;
 //   private PFont font;
