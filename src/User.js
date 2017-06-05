@@ -1,10 +1,12 @@
 const kb = require('keyboardjs');
+const PropViewer = require('./PropViewer');
 
 let Keys = {};
 
 const RotSpeed = 1.85;
 const WalkSpeed = 2;
 const BoundingRadius = 1;
+
 
 let pressed = function(e) {
   Keys[e.code] = true;
@@ -36,6 +38,7 @@ let User = {
 
   update: function(dt) {
     let dirty = false;
+    
 
     if (Keys.ArrowRight) {
       this.rot -= RotSpeed * dt;
@@ -60,6 +63,8 @@ let User = {
       this.right[0] = Math.sin(this.rot);
       this.right[1] = Math.cos(this.rot);
     }
+
+    PropViewer.set('user pos', this.pos);
   }
 };
 

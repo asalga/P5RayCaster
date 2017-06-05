@@ -16,8 +16,8 @@ colorToImageMap.set(0x808080, 'grey');
 
 
 var config = {
-  width: 90 * 2,
-  height: 60 * 2,
+  width: 90 * 3,
+  height: 60 * 3,
   textures: [
     'map.png',
     'bricks1.png',

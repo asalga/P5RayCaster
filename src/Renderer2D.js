@@ -7,7 +7,8 @@ let test = 0;
 const imageWidth = 64;
 
 function Renderer() {
-  let canvas = $("#defaultCanvas0")[0];
+  let canvas = document.getElementById("defaultCanvas0");
+  // let canvas = $("#defaultCanvas0")[0];
   this.ctx = canvas.getContext('2d');
 
   this.cvsImageData = this.ctx.getImageData(0, 0, canvas.width, canvas.height);

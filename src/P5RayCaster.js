@@ -1,17 +1,17 @@
-const kb = require('keyboardjs');
+// const kb = require('keyboardjs');
 const p5 = require('p5');
 const cfg = require('./config');
 const Renderer = require('./Renderer2D');
 const user = require('./User');
+const PropViewer = require('./PropViewer');
 
 window.p5Images = {};
+
 
 let lastTime = Date.now();
 let now = Date.now();
 
 var newp5 = new p5(function(s) {
-  'use strict';
-
 
   let renderer = null;
   let hud = null;
@@ -25,6 +25,9 @@ var newp5 = new p5(function(s) {
   };
 
   s.draw = function() {
+    PropViewer.clear();
+    PropViewer.set('res', [cfg.width, cfg.height]);
+
     now = Date.now();
 
     let dt = (now - lastTime) / 1000.0;
@@ -33,9 +36,7 @@ var newp5 = new p5(function(s) {
     user.update(dt);
     renderer.render();
 
-    s.image(hud,0,cfg.height-hud.height);
-
-    document.getElementById('debug').innerHTML =  dt;
+    s.image(hud, 0, cfg.height - hud.height);
   };
 
   s.keyPressed = function() {};

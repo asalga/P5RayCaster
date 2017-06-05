@@ -1,3 +1,20 @@
+let PropViewer = {
+  blah: {},
+
+  set(str, val) {
+    this.blah[str] = val;
+    document.getElementById('debug').innerHTML = '';
+    for (let v in this.blah) {
+      document.getElementById('debug').innerHTML += v + ': ' + this.blah[v] + '<br>';
+    }
+  },
+  clear() {
+    this.blah = {};
+    document.getElementById('debug').innerHTML = '';
+  }
+};
+
+module.exports = PropViewer;
 /*
 	Purpose of this debugger is to show data of objects in real-time
 */

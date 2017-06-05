@@ -8,18 +8,18 @@ function Renderer3D() {}
 
 /* 
  */
-Renderer.prototype.init = function() {};
+Renderer3D.prototype.init = function() {};
 
 /* 
  */
-Renderer.prototype.sampleTexture = function(texID, index) {};
+Renderer3D.prototype.sampleTexture = function(texID, index) {};
 
 /*
  */
-Renderer.prototype.drawFloorAndCeiling = function() {};
+Renderer3D.prototype.drawFloorAndCeiling = function() {};
 
 /*
  */
-Renderer.prototype.render = function() {};
+Renderer3D.prototype.render = function() {};
 
-module.exports = Renderer;
+module.exports = Renderer3D;
