@@ -12,7 +12,7 @@ Building and Running
 --------------------
 ```shell
 $ git clone git://github.com/asalga/P5RayCaster.git
-$ cd Tetrissing
+$ cd P5RayCaster
 $ make
 $ python -m SimpleHTTPServer
 ```
